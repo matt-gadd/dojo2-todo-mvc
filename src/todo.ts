@@ -54,17 +54,13 @@ interface WidgetStateRecord {
 	closeable?: boolean;
 	name?: string;
 	items?: any[];
+	children?: any[];
 }
 
 const filters = [
 	{ id: 1, label: 'all', classes: ["selected"]},
 	{ id: 2, label: 'active' },
 	{ id: 3, label: 'completed' }
-];
-
-const fakeTodos = [
-	{ id: 1, label: 'make it so' },
-	{ id: 2, label: 'actually fix this' }
 ];
 
 const widgetStore = createMemoryStore<WidgetStateRecord>({
@@ -76,18 +72,13 @@ const widgetStore = createMemoryStore<WidgetStateRecord>({
 		{"id": "new-todo", "classes": ["new-todo"], "placeholder": "What needs to be done?"},
 		{"id": "main", "classes": ["main"]},
 		{"id": "toggle-all", "classes": ["toggle-all"]},
-		{"id": "todo-list", "classes": ["todo-list"]},
-		{"id": "todo-item"},
-		{"id": "todo-item-view", "classes": ["view"]},
-		{"id": "complete-item", "classes": ["toggle"], value: 'checked'},
-		{"id": "todo-item-label", "label": "fix this shit up!"},
-		{"id": "todo-item-delete", "classes": ["destroy"]},
+		{"id": "todo-list", "classes": ["todo-list"], children: []},
 		{"id": "filters-footer", "classes": ["footer"]},
 		{"id": "item-counter", "classes": ["todo-count"]},
 		{"id": "item-count", "label": "0" },
 		{"id": "item-label", "label": "items left"},
-		{"id": "filter-list", "classes": ["filters"], items: filters },
-		{"id": "listy", "items": [{"id": 1}, {"id": 2}] },
+		{"id": "filter-list", "classes": ["filters"], items: filters},
+		{"id": "add-todo", "label": "Add Todo"},
 		{"id": "clear-completed", "classes": ["clear-completed"], "label": "Clear Completed"},
 		{"id": "footer", "classes": ["info"]},
 		{"id": "footer-p1", "label": "Double-click to edit a todo"},
@@ -141,13 +132,6 @@ const main = createPanel({
 	tagName: "section"
 });
 
-const listy = createTodoList({
-	id: "listy",
-	stateFrom: widgetStore
-});
-
-todoApp.append(listy);
-
 todoApp.append(main);
 
 const toggleAll = createCheckboxInput({
@@ -158,59 +142,24 @@ const toggleAll = createCheckboxInput({
 main.append(toggleAll);
 
 //TODO this is shit
-const todoList = createPanel({
+const todoList = createTodoList({
 	id: 'todo-list',
 	stateFrom: widgetStore,
-	tagName: "ul"
+	listeners: {
+		error(evt) {
+			console.log(evt);
+		},
+		statechange(evt) {
+			console.log(evt);
+		},
+		childlist(evt) {
+			console.log(evt);
+		}
+	}
 });
 
 main.append(todoList);
 
-const todoItem = createPanel({
-	id: 'todo-item',
-	stateFrom: widgetStore,
-	tagName: "li"
-});
-
-todoList.append(todoItem);
-
-const todoItemView = createPanel({
-	id: 'todo-item-view',
-	stateFrom: widgetStore,
-	tagName: "div"
-});
-
-todoItem.append(todoItemView);
-
-const completeItem = createCheckboxInput({
-	id: 'complete-item',
-	stateFrom: widgetStore
-});
-
-todoItemView.append(completeItem);
-
-const toggleTodoState = createAction({
-	do() {
-		return widgetStore.patch({"classes": ["completed"]}, { "id": "todo-item"});
-	}
-});
-
-completeItem.on('click', toggleTodoState);
-
-const todoItemLabel = createWidget({
-	id: 'todo-item-label',
-	stateFrom: widgetStore,
-	tagName: "label"
-});
-
-todoItemView.append(todoItemLabel);
-
-const todoItemDelete = createButton({
-	id: 'todo-item-delete',
-	stateFrom: widgetStore
-});
-
-todoItemView.append(todoItemDelete);
 
 const filtersFooter = createPanel({
 	id: "filters-footer",
@@ -282,6 +231,73 @@ const p3 = createWidget({
 	stateFrom: widgetStore,
 	tagName: 'p'
 });
+
+const todoButton = createButton({
+	id: 'add-todo',
+	stateFrom: widgetStore
+});
+
+widgets.push(todoButton);
+
+// const widgetRegistry = {
+// 	get(id: string | symbol): Promise<Child> {
+// 		let widget: Child;
+// 		switch (id) {
+// 		case 'panel-1':
+// 			widget = panel1;
+// 			break;
+// 		case 'panel-2':
+// 			widget = panel2;
+// 			break;
+// 		case 'panel-3':
+// 			widget = panel3;
+// 			break;
+// 		case 'panel-4':
+// 			widget = panel4;
+// 			break;
+// 		}
+// 		return Promise.resolve(widget);
+// 	},
+// 	identify(value: Child): string | symbol {
+// 		let id: string | symbol;
+// 		switch (value) {
+// 		case panel1:
+// 			id = 'panel-1';
+// 			break;
+// 		case panel2:
+// 			id = 'panel-2';
+// 			break;
+// 		case panel3:
+// 			id = 'panel-3';
+// 			break;
+// 		case panel4:
+// 			id = 'panel-4';
+// 			break;
+// 		}
+// 		return id;
+// 	}
+// };
+
+const addTodo = createAction({
+	do() {
+		const label = newTodo.value;
+		
+		const li = createWidget({
+			id: "id1",
+			stateFrom: widgetStore,
+			tagName: 'li'
+		});
+		
+		//todoList.append(li);
+		
+		return widgetStore.patch({ "children": [{"id": "id1"}]}, {id: 'todo-list'});
+	}
+});
+
+todoButton.on('click', addTodo);
+
+window.widgetStore = widgetStore;
+
 
 header.append(headerTitle);
 header.append(form);
