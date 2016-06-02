@@ -1,0 +1,26 @@
+{
+	"version": "1.8.0",
+	"compilerOptions": {
+		"declaration": false,
+		"module": "umd",
+		"noImplicitAny": true,
+		"outDir": "_build/",
+		"removeComments": false,
+		"sourceMap": true,
+		"target": "es5",
+		"moduleResolution": "classic"
+	},
+	"filesGlob": [
+		"./typings/index.d.ts",
+		"./src/**/*.ts",
+		"./tests/**/*.ts"
+	],
+	"files": [
+		"./typings/index.d.ts",
+		"./src/index.ts",
+		"./src/todo.ts",
+		"./src/todoItem.ts",
+		"./src/widgets/createTodoItem.ts",
+		"./src/widgets/createTodoList.ts"
+	]
+}
