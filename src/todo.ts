@@ -73,7 +73,7 @@ const widgetStore = createMemoryStore<WidgetStateRecord>({
 		{"id": "header", "classes": ["header"]},
 		{"id": "header-title", "label": "todos"},
 		{"id": "new-todo-form", "classes": ["todo-form"]},
-		{"id": "new-todo", "classes": ["new-todo"], "placeholder": "What needs to be done?"},		
+		{"id": "new-todo", "classes": ["new-todo"], "placeholder": "What needs to be done?"},
 		{"id": "main", "classes": ["main"]},
 		{"id": "toggle-all", "classes": ["toggle-all"]},
 		{"id": "todo-list", "classes": ["todo-list"]},
@@ -190,7 +190,7 @@ const completeItem = createCheckboxInput({
 todoItemView.append(completeItem);
 
 const toggleTodoState = createAction({
-	do() {	
+	do() {
 		return widgetStore.patch({"classes": ["completed"]}, { "id": "todo-item"});
 	}
 });
@@ -245,17 +245,16 @@ const itemLabel = createWidget({
 itemCounter.append(itemLabel);
 
 //TODO this is shit
-const filterList = createList({
+const filterList = createTodoList({
 	id: 'filter-list',
-	stateFrom: widgetStore,
-	tagName: "ul"
+	stateFrom: widgetStore
 });
 
 filtersFooter.append(filterList);
 
 const clearCompleted = createButton({
 	id: 'clear-completed',
-	stateFrom: widgetStore	
+	stateFrom: widgetStore
 });
 
 filtersFooter.append(clearCompleted);
