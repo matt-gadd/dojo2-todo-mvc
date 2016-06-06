@@ -2,4 +2,5 @@ typings
 node_modules
 _build
 dist
+src/.baseDir.ts
 
