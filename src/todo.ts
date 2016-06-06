@@ -22,6 +22,8 @@ import projector from 'dojo-widgets/projector';
 import { Child } from 'dojo-widgets/mixins/createParentMixin';
 import { ValueChangeEvent } from 'dojo-widgets/mixins/createFormFieldMixin';
 import createAction, { Action, ActionState } from 'dojo-actions/createAction';
+import todoRegistryFactory from './registry/createTodoRegistry';
+
 
 interface TypedTargetEvent<T extends EventTarget> extends Event {
 	target: T;
@@ -70,6 +72,8 @@ const widgetStore = createMemoryStore<WidgetStateRecord>({
 	]
 });
 
+const todoRegistry = todoRegistryFactory({"widgetStore": widgetStore});
+
 const actionStore = createMemoryStore({
 	data: [
 		{ id: 'close-tab', doComplete: true }
@@ -84,29 +88,11 @@ const todoApp = createPanel({
 	tagName: "section"
 });
 
-const idToWidgetMap = new Map<string, Child>();
-const widgetToIdMap = new WeakMap<Child, string>();
-
-const widgetRegistry = {
-    get(id: string ): Promise<Child> {
-        let widget :Child = idToWidgetMap.get(id);
-				if (!widget) {
-						widget = createTodoItem({id: id, stateFrom: widgetStore});
-						widgetToIdMap.set(widget, id);
-						idToWidgetMap.set(id, widget);
-				}
-				return Promise.resolve(widget);
-    },
-    identify(value: Child): string {
-        return widgetToIdMap.get(value);
-    }
-};
-
 //TODO this is shit
 const todoList = createTodoList({
 	id: 'todo-list',
 	stateFrom: widgetStore,
-	widgetRegistry: widgetRegistry,
+	widgetRegistry: todoRegistry,
 	listeners: {
 		error(evt) {
 			console.log(evt);
