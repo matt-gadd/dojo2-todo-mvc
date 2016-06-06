@@ -10,12 +10,12 @@ interface TodoRegistryOptions {
 }
 
 const createTodoActions = compose({
-	create(label:string):any {
+	create(label:string):ActionState {
 		const widgetStore = this.widgetStore;
 		const todoListId = this.todoListId;
 		return createAction({
 			do() {
-				const id = 'id' + Date.now();
+				const id = 'todo-' + Date.now();
 				return widgetStore.get(todoListId).then((todoListData:any) => {
 					var todoItems = todoListData.children;
 					todoItems.push(id);
