@@ -19,7 +19,7 @@ interface WidgetStateRecord {
 
 const widgetStore = createMemoryStore<WidgetStateRecord>({
 	data: [
-		{'id': 'todoapp', 'classes': ['todoapp']},
+		{'id': 'todo-app', 'classes': ['todoapp']},
 		{'id': 'todo-list', 'classes': ['todo-list'], children: []},
 		{'id': 'add-todo', 'label': 'Add Todo'},
 		{'id': 'todo-header', 'title': 'todos', 'placeholder': 'What needs to be done?'}
@@ -28,15 +28,17 @@ const widgetStore = createMemoryStore<WidgetStateRecord>({
 
 const widgets: Child[] = [];
 
+const main = createPanel({
+	id: 'todo-app',
+	stateFrom: widgetStore,
+	tagName: "section"
+});
+
 // The Header
 const todoHeader = createTodoHeader({
 	id: 'todo-header',
 	stateFrom: widgetStore
 });
-// <header class="header">
-// 			<h1>todos</h1>
-// 			<input class="new-todo" placeholder="What needs to be done?" autofocus>
-// 		</header>
 
 // The List
 const todoRegistry = todoRegistryFactory({ widgetStore });
@@ -45,8 +47,6 @@ const todoActions = todoActionsFactory({
 	widgetStore,
 	'todoListId': 'todo-list'
 });
-
-
 
 const todoList = createTodoList({
 	id: 'todo-list',
@@ -59,15 +59,13 @@ const todoButton = createButton({
 	stateFrom: widgetStore
 });
 
-widgets.push(todoHeader);
-widgets.push(todoButton);
-
 todoButton.on('click', function () {
 	todoActions.create('blah').do();
 });
 
-widgets.push(todoList);
+main.append(todoHeader);
+main.append(todoButton);
+widgets.push(main);
 
 projector.append(widgets);
-projector.setRoot(document.getElementById('todoapp'));
 projector.attach();
