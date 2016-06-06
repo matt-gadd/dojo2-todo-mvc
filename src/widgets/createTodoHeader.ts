@@ -5,7 +5,7 @@ const createTodoHeader = createWidget
 	.mixin({
 		mixin: {
 			render(): VNode {
-				return h('header', {'classes': this.state.classes}, [
+				return h('header', {'class': 'header'}, [
 					h('h1', this.state.title),
 					h('input', {
 						'class': 'new-todo',

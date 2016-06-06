@@ -19,10 +19,10 @@ interface WidgetStateRecord {
 
 const widgetStore = createMemoryStore<WidgetStateRecord>({
 	data: [
-		{'id': 'todo-app', 'classes': ['todo-app']},
+		{'id': 'todo-app', 'classes': ['todoapp']},
 		{'id': 'todo-list', 'classes': ['todo-list'], children: []},
 		{'id': 'todo-add', 'label': 'Add Todo'},
-		{'id': 'todo-header', 'classes': ['header'], 'title': 'todos', 'placeholder': 'What needs to be done?'}
+		{'id': 'todo-header', 'title': 'todos', 'placeholder': 'What needs to be done?'}
 	]
 });
 
@@ -72,8 +72,6 @@ widgets.push(todoApp);
 todoButton.on('click', function () {
 	todoActions.create('blah').do();
 });
-
-widgets.push(todoList);
 
 projector.append(widgets);
 projector.attach();
