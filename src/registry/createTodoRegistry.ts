@@ -14,10 +14,10 @@ interface TodoRegistryOptions {
 }
 
 const todoRegistryFactory = compose({
-	get(id: string ): Promise<Child> {
+	get(id: string): Promise<Child> {
 		let widget: Child = idToWidgetMap.get(id);
 		if (!widget) {
-			widget = createTodoItem({id: id, stateFrom: this.widgetStore});
+			widget = createTodoItem({id, stateFrom: this.widgetStore});
 			widgetToIdMap.set(widget, id);
 			idToWidgetMap.set(id, widget);
 		}

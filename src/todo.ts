@@ -24,12 +24,10 @@ const widgetStore = createMemoryStore<WidgetStateRecord>({
 	]
 });
 
-const todoRegistry = todoRegistryFactory({
-	'widgetStore': widgetStore
-});
+const todoRegistry = todoRegistryFactory({ widgetStore });
 
 const todoActions = todoActionsFactory({
-	'widgetStore': widgetStore,
+	widgetStore,
 	'todoListId': 'todo-list'
 });
 
