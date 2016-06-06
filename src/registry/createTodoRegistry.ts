@@ -10,12 +10,12 @@ const idToWidgetMap = new Map<string, Child>();
 const widgetToIdMap = new WeakMap<Child, string>();
 
 interface TodoRegistryOptions {
-	widgetStore: MemoryStore<Object>
+	widgetStore: MemoryStore<Object>;
 }
 
 const todoRegistryFactory = compose({
 	get(id: string ): Promise<Child> {
-		let widget :Child = idToWidgetMap.get(id);
+		let widget: Child = idToWidgetMap.get(id);
 		if (!widget) {
 			widget = createTodoItem({id: id, stateFrom: this.widgetStore});
 			widgetToIdMap.set(widget, id);
@@ -26,15 +26,12 @@ const todoRegistryFactory = compose({
 	identify(value: Child): string {
 		return widgetToIdMap.get(value);
 	}
-}, function (todoRegistry:any, options:any) {
+}, function (todoRegistry: any, options: any) {
 	if (options) {
 		for (let key in options) {
-			todoRegistry[key] = options[key]
+			todoRegistry[key] = options[key];
 		}
 	}
 });
 
 export default todoRegistryFactory;
-
-
-

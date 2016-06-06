@@ -1,7 +1,6 @@
 import createMemoryStore from 'dojo-widgets/util/createMemoryStore';
 import createButton from 'dojo-widgets/createButton';
 import createPanel from 'dojo-widgets/createPanel';
-import Promise from 'dojo-core/Promise';
 import projector from 'dojo-widgets/projector';
 import { Child } from 'dojo-widgets/mixins/createParentMixin';
 

@@ -1,16 +1,13 @@
-import Promise from 'dojo-core/Promise';
-import { Child } from 'dojo-widgets/mixins/createParentMixin';
-import createTodoItem from '../widgets/createTodoItem';
 import compose from 'dojo-compose/compose';
 import { MemoryStore } from 'dojo-widgets/util/createMemoryStore';
-import createAction, { Action, ActionState } from 'dojo-actions/createAction';
+import createAction, { ActionState } from 'dojo-actions/createAction';
 
 interface TodoRegistryOptions {
-	widgetStore: MemoryStore<Object>
+	widgetStore: MemoryStore<Object>;
 }
 
 const createTodoActions = compose({
-	create(label:string):ActionState {
+	create(label: string): ActionState {
 		const widgetStore = this.widgetStore;
 		const todoListId = this.todoListId;
 		return createAction({
@@ -28,15 +25,12 @@ const createTodoActions = compose({
 			}
 		});
 	}
-}, function (createTodoAction:any, options:any) {
+}, function (createTodoAction: any, options: any) {
 	if (options) {
 		for (let key in options) {
-			createTodoAction[key] = options[key]
+			createTodoAction[key] = options[key];
 		}
 	}
 });
 
 export default createTodoActions;
-
-
-
