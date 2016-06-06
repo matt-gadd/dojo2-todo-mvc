@@ -4,20 +4,17 @@ import { h, VNode } from 'maquette/maquette';
 const createTodoHeader = createWidget
 	.mixin({
 		mixin: {
-			render(): VNode[] {
-				return [
+			render(): VNode {
+				return h('header', {'classes': this.state.classes}, [
 					h('h1', this.state.title),
 					h('input', {
 						'class': 'new-todo',
 						'placeHolder': this.state.placeholder,
 						'autofocus': 'autofocus'
 					})
-				];
+				]);
 			}
 		}
-	})
-	.extend({
-		tagName: 'header'
 	});
 
 export default createTodoHeader;
