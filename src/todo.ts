@@ -31,7 +31,7 @@ const widgets: Child[] = [];
 const main = createPanel({
 	id: 'todo-app',
 	stateFrom: widgetStore,
-	tagName: "section"
+	tagName: 'section'
 });
 
 // The Header
@@ -45,7 +45,7 @@ const todoRegistry = todoRegistryFactory({ widgetStore });
 
 const todoActions = todoActionsFactory({
 	widgetStore,
-	'todoListId': 'todo-list'
+	todoListId: 'todo-list'
 });
 
 const todoList = createTodoList({
@@ -63,7 +63,6 @@ const todoButton = createButton({
 todoButton.on('click', function () {
 	todoActions.create('blah').do();
 });
-
 
 main.append(todoButton);
 main.append(todoHeader);
