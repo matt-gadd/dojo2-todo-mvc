@@ -22,7 +22,7 @@ const widgetStore = createMemoryStore<WidgetStateRecord>({
 		{'id': 'todo-app', 'classes': ['todoapp']},
 		{'id': 'todo-list', 'classes': ['todo-list'], children: []},
 		{'id': 'todo-add', 'label': 'Add Todo'},
-		{'id': 'todo-header', 'title': 'todos', 'placeholder': 'What needs to be done?'}
+		{'id': 'todo-header', 'classes': ['header'], 'title': 'todos', 'placeholder': 'What needs to be done?'}
 	]
 });
 
