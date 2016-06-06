@@ -28,7 +28,7 @@ const widgetStore = createMemoryStore<WidgetStateRecord>({
 
 const widgets: Child[] = [];
 
-const todoApp = createPanel({
+const main = createPanel({
 	id: 'todo-app',
 	stateFrom: widgetStore,
 	tagName: 'section'
@@ -40,14 +40,12 @@ const todoHeader = createTodoHeader({
 	stateFrom: widgetStore
 });
 
-todoApp.append(todoHeader);
-
 // The List
 const todoRegistry = todoRegistryFactory({ widgetStore });
 
 const todoActions = todoActionsFactory({
 	widgetStore,
-	'todoListId': 'todo-list'
+	todoListId: 'todo-list'
 });
 
 const todoList = createTodoList({
@@ -56,22 +54,20 @@ const todoList = createTodoList({
 	widgetRegistry: todoRegistry
 });
 
-todoApp.append(todoList);
-
 // Create button
 const todoButton = createButton({
 	id: 'todo-add',
 	stateFrom: widgetStore
 });
 
-todoApp.append(todoButton);
-
-// Push to widgets array
-widgets.push(todoApp);
-
 todoButton.on('click', function () {
 	todoActions.create('blah').do();
 });
+
+main.append(todoButton);
+main.append(todoHeader);
+main.append(todoList);
+widgets.push(main);
 
 projector.append(widgets);
 projector.attach();

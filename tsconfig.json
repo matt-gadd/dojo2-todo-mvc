@@ -25,5 +25,8 @@
 		"./src/widgets/createTodoHeader.ts",
 		"./src/widgets/createTodoItem.ts",
 		"./src/widgets/createTodoList.ts"
-	]
+	],
+	"atom": {
+		"rewriteTsconfig": true
+	}
 }
