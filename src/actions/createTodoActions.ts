@@ -17,10 +17,13 @@ const createTodoActions = compose({
 			do() {
 				const id = 'todo-' + Date.now();
 				return widgetStore.get(todoListId).then((todoListData:any) => {
-					var todoItems = todoListData.children;
-					todoItems.push(id);
-					return widgetStore.add({id: id, label}).then(() =>
-						widgetStore.patch({ id: todoListId, 'children': todoItems }));
+					const children = todoListData.children;
+					children.push(id);
+					return widgetStore.add({
+						id, label
+					}).then(() => widgetStore.patch({
+						id: todoListId, 'children': children
+					}));
 				});
 			}
 		});
