@@ -6,31 +6,37 @@ import { h, VNode } from 'maquette/maquette';
 
 const createTodoItem = createWidget
 	.mixin({
+		initialize(instance) {
+			instance.checkbox = createCheckbox();
+			instance.button = createButton();
+			instance.editInput = createTextInput();
+
+			instance.checkbox.on('change', () => {
+				debugger;
+			});
+		},
 		mixin: {
 			getChildrenNodes(): VNode[] {
-				const checkbox = createCheckbox();
-				checkbox.setState({
+				this.checkbox.setState({
 					'classes': ['toggle']
 				});
 
-				const button = createButton();
-				button.setState({
+				this.button.setState({
 					'classes': ['destroy']
 				});
 
-				const editInput = createTextInput();
-				editInput.setState({
+				this.editInput.setState({
 					'classes': ['edit'],
 					'value': 'createTextInput'
 				});
 
 				return [
 					h('div', {'class': 'view'}, [
-						checkbox.render(),
+						this.checkbox.render(),
 						h('label', this.state.label),
-						button.render()
+						this.button.render()
 					]),
-					editInput.render()
+					this.editInput.render()
 				];
 			}
 		}
@@ -40,12 +46,3 @@ const createTodoItem = createWidget
 	});
 
 export default createTodoItem;
-
-// <li class="completed">
-// 	<div class="view">
-// 		<input class="toggle" type="checkbox" checked>
-// 		<label>Taste JavaScript</label>
-// 		<button class="destroy"></button>
-// 	</div>
-// 	<input class="edit" value="Create a TodoMVC template">
-// </li>
