@@ -22,6 +22,7 @@
 		"./src/registry/createTodoRegistry.ts",
 		"./src/todo.ts",
 		"./src/todoItem.ts",
+		"./src/widgets/createTodoHeader.ts",
 		"./src/widgets/createTodoItem.ts",
 		"./src/widgets/createTodoList.ts"
 	]
