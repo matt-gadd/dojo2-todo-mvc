@@ -22,7 +22,7 @@ const createTodoActions = compose({
 					return widgetStore.add({
 						id, label
 					}).then(() => widgetStore.patch({
-						id: todoListId, 'children': children
+						id: todoListId, children
 					}));
 				});
 			}
