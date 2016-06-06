@@ -112,7 +112,6 @@ const todoList = createTodoList({
 			console.log(evt);
 		},
 		statechange(evt) {
-			debugger;
 			console.log(evt);
 		},
 		childlist(evt) {
