@@ -9,7 +9,6 @@ import createPanel from 'dojo-widgets/createPanel';
 import createResizePanel from 'dojo-widgets/createResizePanel';
 import createTabbedPanel from 'dojo-widgets/createTabbedPanel';
 import createTextInput from 'dojo-widgets/createTextInput';
-import todoItemRegistry from './registry/todoItemRegistry';
 import WeakMap from 'dojo-core/WeakMap';
 import Map from 'dojo-core/Map';
 import createTodoItem from './widgets/createTodoItem';
