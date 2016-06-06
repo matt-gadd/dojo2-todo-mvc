@@ -5,11 +5,14 @@ const createTodoHeader = createWidget
 	.mixin({
 		mixin: {
 			render(): VNode[] {
-				return [ h('h1', this.state.title), h('input', {
-					'class': 'new-todo',
-					'placeHolder': this.state.placeholder,
-					'autofocus': 'autofocus'
-				})];
+				return [
+					h('h1', this.state.title),
+					h('input', {
+						'class': 'new-todo',
+						'placeHolder': this.state.placeholder,
+						'autofocus': 'autofocus'
+					})
+				];
 			}
 		}
 	})
