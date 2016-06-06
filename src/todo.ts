@@ -33,10 +33,6 @@ const todoHeader = createTodoHeader({
 	id: 'todo-header',
 	stateFrom: widgetStore
 });
-// <header class="header">
-// 			<h1>todos</h1>
-// 			<input class="new-todo" placeholder="What needs to be done?" autofocus>
-// 		</header>
 
 // The List
 const todoRegistry = todoRegistryFactory({ widgetStore });
@@ -46,19 +42,19 @@ const todoActions = todoActionsFactory({
 	'todoListId': 'todo-list'
 });
 
-
-
 const todoList = createTodoList({
 	id: 'todo-list',
 	stateFrom: widgetStore,
 	widgetRegistry: todoRegistry
 });
 
+// Create button
 const todoButton = createButton({
 	id: 'add-todo',
 	stateFrom: widgetStore
 });
 
+// Push to widgets array
 widgets.push(todoHeader);
 widgets.push(todoButton);
 
