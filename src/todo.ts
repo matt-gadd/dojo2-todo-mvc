@@ -21,8 +21,8 @@ const widgetStore = createMemoryStore<WidgetStateRecord>({
 	data: [
 		{'id': 'todo-app', 'classes': ['todoapp']},
 		{'id': 'todo-list', 'classes': ['todo-list'], children: []},
-		{'id': 'add-todo', 'label': 'Add Todo'},
-		{'id': 'todo-header', 'title': 'todos', 'placeholder': 'What needs to be done?'}
+		{'id': 'todo-add', 'label': 'Add Todo'},
+		{'id': 'todo-header', 'classes': ['header'], 'title': 'todos', 'placeholder': 'What needs to be done?'}
 	]
 });
 
@@ -54,8 +54,9 @@ const todoList = createTodoList({
 	widgetRegistry: todoRegistry
 });
 
+// Create button
 const todoButton = createButton({
-	id: 'add-todo',
+	id: 'todo-add',
 	stateFrom: widgetStore
 });
 
@@ -63,8 +64,10 @@ todoButton.on('click', function () {
 	todoActions.create('blah').do();
 });
 
-main.append(todoHeader);
+
 main.append(todoButton);
+main.append(todoHeader);
+main.append(todoList);
 widgets.push(main);
 
 projector.append(widgets);
