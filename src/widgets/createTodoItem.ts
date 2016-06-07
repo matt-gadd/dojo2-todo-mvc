@@ -25,35 +25,47 @@ const createTodoItem = createWidget
 				editInput: createTextInput()
 			};
 
-			instance.childWidgets.checkbox.on('change', () => {
-				debugger;
+			instance.childWidgets.checkbox.on('change', function (e: Event) {
+				instance.emit({
+					type: 'completed',
+					value: this.checked
+				});
+			});
+
+			instance.childWidgets.button.on('click', function (e: Event) {
+				instance.emit({
+					type: 'removed'
+				});
 			});
 		},
 		mixin: {
 			childWidgets: <TodoItemChildWidgets> null,
 			getChildrenNodes(): VNode[] {
 				const todoItem: TodoItem = this;
+				const checkbox = todoItem.childWidgets.checkbox;
+				const button = todoItem.childWidgets.button;
+				const editInput = todoItem.childWidgets.editInput;
 
-				todoItem.childWidgets.checkbox.setState({
+				checkbox.setState({
 					'classes': ['toggle']
 				});
 
-				todoItem.childWidgets.button.setState({
+				button.setState({
 					'classes': ['destroy']
 				});
 
-				todoItem.childWidgets.editInput.setState({
+				editInput.setState({
 					'classes': ['edit'],
 					'value': 'createTextInput'
 				});
 
 				return [
 					h('div', {'class': 'view'}, [
-						todoItem.childWidgets.checkbox.render(),
+						checkbox.render(),
 						h('label', todoItem.state.label),
-						todoItem.childWidgets.button.render()
+						button.render()
 					]),
-					todoItem.childWidgets.editInput.render()
+					editInput.render()
 				];
 			}
 		}

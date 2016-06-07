@@ -9,6 +9,10 @@ import todoActionsFactory from './actions/createTodoActions';
 import createTodoList from './widgets/createTodoList';
 import createTodoHeader from './widgets/createTodoHeader';
 
+interface NewTodoEvent extends Event {
+	value: string;
+}
+
 interface WidgetStateRecord {
 	[prop: string]: any;
 	id: string;
@@ -22,7 +26,7 @@ const widgetStore = createMemoryStore<WidgetStateRecord>({
 		{'id': 'todo-app', 'classes': ['todoapp']},
 		{'id': 'todo-list', 'classes': ['todo-list'], children: []},
 		{'id': 'todo-add', 'label': 'Add Todo'},
-		{'id': 'todo-header', 'classes': ['header'], 'title': 'todos', 'placeholder': 'What needs to be done?'}
+		{'id': 'todo-header', 'classes': ['header'], 'title': 'todos', 'placeholder': 'What needs to be done?', 'inputValue': ''}
 	]
 });
 
@@ -37,7 +41,10 @@ const main = createPanel({
 // The Header
 const todoHeader = createTodoHeader({
 	id: 'todo-header',
-	stateFrom: widgetStore
+	stateFrom: widgetStore,
+	listeners: {
+		'new-todo': addNewTodo
+	}
 });
 
 // The List
@@ -54,17 +61,10 @@ const todoList = createTodoList({
 	widgetRegistry: todoRegistry
 });
 
-// Create button
-const todoButton = createButton({
-	id: 'todo-add',
-	stateFrom: widgetStore
-});
+function addNewTodo(e: NewTodoEvent) {
+	todoActions.create(e.value).do();
+}
 
-todoButton.on('click', function () {
-	todoActions.create('blah').do();
-});
-
-main.append(todoButton);
 main.append(todoHeader);
 main.append(todoList);
 widgets.push(main);
