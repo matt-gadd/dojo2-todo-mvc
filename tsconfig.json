@@ -22,7 +22,7 @@
 		"./src/registry/createTodoRegistry.ts",
 		"./src/todo.ts",
 		"./src/todoItem.ts",
-		"./src/widgets/createCheckbox.ts",
+		"./src/widgets/createCheckboxInput.ts",
 		"./src/widgets/createTodoHeader.ts",
 		"./src/widgets/createTodoItem.ts",
 		"./src/widgets/createTodoList.ts"

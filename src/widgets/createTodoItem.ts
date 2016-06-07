@@ -1,42 +1,59 @@
-import createWidget from 'dojo-widgets/createWidget';
-import createButton from 'dojo-widgets/createButton';
-import createTextInput from 'dojo-widgets/createTextInput';
-import createCheckbox from './createCheckbox';
+import createWidget, { Widget } from 'dojo-widgets/createWidget';
+import createButton, { Button } from 'dojo-widgets/createButton';
+import createTextInput, { TextInput } from 'dojo-widgets/createTextInput';
+import createCheckboxInput, { CheckboxInput } from './createCheckboxInput';
 import { h, VNode } from 'maquette/maquette';
+
+export interface TodoItemMixin {
+	childWidgets: TodoItemChildWidgets;
+}
+
+interface TodoItemChildWidgets {
+	checkbox: CheckboxInput;
+	button: Button;
+	editInput: TextInput;
+}
+
+export type TodoItem = Widget<any> & TodoItemMixin;
 
 const createTodoItem = createWidget
 	.mixin({
 		initialize(instance) {
-			instance.checkbox = createCheckbox();
-			instance.button = createButton();
-			instance.editInput = createTextInput();
+			instance.childWidgets = {
+				checkbox: createCheckboxInput(),
+				button: createButton(),
+				editInput: createTextInput()
+			};
 
-			instance.checkbox.on('change', () => {
+			instance.childWidgets.checkbox.on('change', () => {
 				debugger;
 			});
 		},
 		mixin: {
+			childWidgets: <TodoItemChildWidgets> null,
 			getChildrenNodes(): VNode[] {
-				this.checkbox.setState({
+				const todoItem: TodoItem = this;
+
+				todoItem.childWidgets.checkbox.setState({
 					'classes': ['toggle']
 				});
 
-				this.button.setState({
+				todoItem.childWidgets.button.setState({
 					'classes': ['destroy']
 				});
 
-				this.editInput.setState({
+				todoItem.childWidgets.editInput.setState({
 					'classes': ['edit'],
 					'value': 'createTextInput'
 				});
 
 				return [
 					h('div', {'class': 'view'}, [
-						this.checkbox.render(),
-						h('label', this.state.label),
-						this.button.render()
+						todoItem.childWidgets.checkbox.render(),
+						h('label', todoItem.state.label),
+						todoItem.childWidgets.button.render()
 					]),
-					this.editInput.render()
+					todoItem.childWidgets.editInput.render()
 				];
 			}
 		}
