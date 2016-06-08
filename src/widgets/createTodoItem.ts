@@ -1,4 +1,4 @@
-import createWidget, { Widget } from 'dojo-widgets/createWidget';
+import createWidget from 'dojo-widgets/createWidget';
 import createButton, { Button } from 'dojo-widgets/createButton';
 import createTextInput, { TextInput } from 'dojo-widgets/createTextInput';
 import createCheckboxInput, { CheckboxInput } from './createCheckboxInput';

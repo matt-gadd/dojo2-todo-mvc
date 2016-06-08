@@ -5,7 +5,7 @@ import projector from 'dojo-widgets/projector';
 import { Child } from 'dojo-widgets/mixins/createParentMixin';
 
 import todoRegistryFactory from './registry/createTodoRegistry';
-import todoActionsFactory from './actions/createTodoActions';
+import { createTodoAction, destroyTodoAction, registerTodoActions } from './actions/todoActions';
 import createTodoList from './widgets/createTodoList';
 import createTodoHeader from './widgets/createTodoHeader';
 
@@ -34,25 +34,21 @@ const main = createPanel({
 	tagName: 'section'
 });
 
-// The Header
 const todoHeader = createTodoHeader({
 	id: 'todo-header',
 	stateFrom: widgetStore
 });
 
-// The List
 const todoRegistry = todoRegistryFactory({ widgetStore });
-
-const todoActions = todoActionsFactory({
-	widgetStore,
-	todoListId: 'todo-list'
-});
 
 const todoList = createTodoList({
 	id: 'todo-list',
 	stateFrom: widgetStore,
 	widgetRegistry: todoRegistry
 });
+
+const parentId = 'todo-list';
+registerTodoActions({ widgetStore, parentId });
 
 main.append(todoHeader);
 main.append(todoList);
