@@ -24,6 +24,15 @@ const createTodoActions = compose({
 				});
 			}
 		});
+	},
+	remove(id: string): ActionState {
+		const widgetStore = this.widgetStore;
+		const todoListId = this.todoListId;
+		return createAction({
+			do() {
+				debugger;
+			}
+		})
 	}
 }, function (createTodoAction: any, options: any) {
 	if (options) {

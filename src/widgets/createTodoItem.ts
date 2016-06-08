@@ -20,25 +20,22 @@ const createTodoItem = createWidget
 	.mixin({
 		initialize(instance) {
 			instance.childWidgets = {
-				checkbox: createCheckboxInput(),
-				button: createButton(),
+				checkbox: createCheckboxInput({
+					listeners: { 'change': instance.checkboxChangeListener.bind(instance) }
+				}),
+				button: createButton({
+					listeners: { 'click': instance.deleteButtonClickListener.bind(instance) }
+				}),
 				editInput: createTextInput()
 			};
-
-			instance.childWidgets.checkbox.on('change', function (e: Event) {
-				instance.emit({
-					type: 'completed',
-					value: this.checked
-				});
-			});
-
-			instance.childWidgets.button.on('click', function (e: Event) {
-				instance.emit({
-					type: 'removed'
-				});
-			});
 		},
 		mixin: {
+			checkboxChangeListener(e: Event) {
+				// action.complete
+			},
+			deleteButtonClickListener(e: MouseEvent) {
+				// action.remove
+			},
 			childWidgets: <TodoItemChildWidgets> null,
 			getChildrenNodes(): VNode[] {
 				const todoItem: TodoItem = this;

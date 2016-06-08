@@ -33,24 +33,27 @@ const createTodoHeader = createWidget
 				const textInput = todoHeader.childWidgets.textInput;
 
 				if (e.keyCode === ENTER_KEY_CODE) {
-					todoHeader.emit({
-						type: 'new-todo',
-						value: textInput.value
-					});
+					// action.new
 				}
 			},
-			render(): VNode {
+			getChildrenNodes(): VNode[] {
 				const todoHeader: TodoHeader = this;
 				const textInput = todoHeader.childWidgets.textInput;
+
+				textInput.setState({
+					value: todoHeader.state.value
+				});
 
 				const inputVNode = textInput.render();
 				inputVNode.properties.placeholder = todoHeader.state.placeholder;
 				inputVNode.properties['autofocus'] = true;
 
-				return h('header', {'class': todoHeader.state.classes.join(' ')}, [
-					h('h1', todoHeader.state.title),
-					inputVNode
-				]);
+				return [
+					h('header', {'class': todoHeader.state.classes.join(' ')}, [
+						h('h1', todoHeader.state.title),
+						inputVNode
+					])
+				];
 			}
 		}
 	});
