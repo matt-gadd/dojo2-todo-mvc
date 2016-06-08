@@ -17,12 +17,12 @@
 	],
 	"files": [
 		"./typings/index.d.ts",
-		"./src/actions/createTodoActions.ts",
+		"./src/actions/todoActions.ts",
 		"./src/index.ts",
 		"./src/registry/createTodoRegistry.ts",
 		"./src/todo.ts",
 		"./src/todoItem.ts",
-		"./src/widgets/createCheckbox.ts",
+		"./src/widgets/createCheckboxInput.ts",
 		"./src/widgets/createTodoHeader.ts",
 		"./src/widgets/createTodoItem.ts",
 		"./src/widgets/createTodoList.ts"

@@ -9,6 +9,10 @@ import { createTodoAction, destroyTodoAction, registerTodoActions } from './acti
 import createTodoList from './widgets/createTodoList';
 import createTodoHeader from './widgets/createTodoHeader';
 
+interface NewTodoEvent extends Event {
+	value: string;
+}
+
 interface WidgetStateRecord {
 	[prop: string]: any;
 	id: string;
@@ -22,7 +26,7 @@ const widgetStore = createMemoryStore<WidgetStateRecord>({
 		{'id': 'todo-app', 'classes': ['todoapp']},
 		{'id': 'todo-list', 'classes': ['todo-list'], children: []},
 		{'id': 'todo-add', 'label': 'Add Todo'},
-		{'id': 'todo-header', 'classes': ['header'], 'title': 'todos', 'placeholder': 'What needs to be done?'}
+		{'id': 'todo-header', 'classes': ['header'], 'title': 'todos', 'placeholder': 'What needs to be done?', 'inputValue': ''}
 	]
 });
 
@@ -68,7 +72,6 @@ todoButton.on('click', () => {
 	createTodoAction.do({ 'label': count++, parentId: 'todo-list'}).then(deleteInAWhile);
 });
 
-main.append(todoButton);
 main.append(todoHeader);
 main.append(todoList);
 widgets.push(main);

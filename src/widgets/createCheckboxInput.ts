@@ -13,7 +13,7 @@ export type CheckboxInput = Widget<FormFieldMixinState<string>> & FormFieldMixin
 
 export interface CheckboxInputFactory extends ComposeFactory<CheckboxInput, CheckboxInputOptions> { }
 
-const createCheckbox: CheckboxInputFactory = createWidget
+const createCheckboxInput: CheckboxInputFactory = createWidget
 	.mixin({
 		mixin: createFormFieldMixin,
 		initialize(instance) {
@@ -27,4 +27,4 @@ const createCheckbox: CheckboxInputFactory = createWidget
 		tagName: 'input'
 	});
 
-export default createCheckbox;
+export default createCheckboxInput;
