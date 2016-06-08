@@ -4,6 +4,8 @@ import createTextInput, { TextInput } from 'dojo-widgets/createTextInput';
 import createCheckboxInput, { CheckboxInput } from './createCheckboxInput';
 import { h, VNode } from 'maquette/maquette';
 
+import { destroyTodoAction } from '../actions/todoActions';
+
 export interface TodoItemMixin {
 	childWidgets: TodoItemChildWidgets;
 }
@@ -34,7 +36,11 @@ const createTodoItem = createWidget
 				// action.complete
 			},
 			deleteButtonClickListener(e: MouseEvent) {
-				// action.remove
+				const todoItem: TodoItem = this;
+
+				destroyTodoAction.do({
+					id: todoItem.state.id
+				});
 			},
 			childWidgets: <TodoItemChildWidgets> null,
 			getChildrenNodes(): VNode[] {
