@@ -26,9 +26,9 @@ const create: AnyAction = createAction({
 	do(options: any) {
 		const id = generateId();
 		const widgetStore = this.configuration.widgetStore;
+		const parentId = this.configuration.parentId;
 
 		const label = options.label;
-		const parentId = options.parentId;
 
 		return widgetStore.add({ id, label })
 			.then(() => widgetStore.get(parentId))
@@ -42,9 +42,9 @@ const destroy: AnyAction = createAction({
 	configure,
 	do(options: any) {
 		const widgetStore = this.configuration.widgetStore;
+		const parentId = this.configuration.parentId;
 
 		const childId = options.id;
-		const parentId = options.parentId;
 
 		return widgetStore.get(parentId)
 			.then((todosState: WidgetStateRecord) => todosState.children.filter((id) => id !== childId))
