@@ -40,8 +40,8 @@ const create: AnyAction = createAction({
 
 interface CompletePatchObject {
 	id: string;
-	completed: boolean,
-	classes?: string[]
+	completed: boolean;
+	classes?: string[];
 }
 
 const todoCompleteClass = 'completed';
