@@ -2,6 +2,8 @@ import createWidget, { Widget} from 'dojo-widgets/createWidget';
 import createTextInput, { TextInput } from 'dojo-widgets/createTextInput';
 import { h, VNode } from 'maquette/maquette';
 
+import { createTodoAction } from '../actions/todoActions';
+
 export interface TodoHeaderMixin {
 	childWidgets: TodoHeaderChildWidgets;
 }
@@ -33,7 +35,9 @@ const createTodoHeader = createWidget
 				const textInput = todoHeader.childWidgets.textInput;
 
 				if (e.keyCode === ENTER_KEY_CODE) {
-					// action.new
+					createTodoAction.do({
+						label: textInput.value
+					});
 				}
 			},
 			getChildrenNodes(): VNode[] {
