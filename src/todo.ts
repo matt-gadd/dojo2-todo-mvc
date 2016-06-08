@@ -1,11 +1,10 @@
 import createMemoryStore from 'dojo-widgets/util/createMemoryStore';
-import createButton from 'dojo-widgets/createButton';
 import createPanel from 'dojo-widgets/createPanel';
 import projector from 'dojo-widgets/projector';
 import { Child } from 'dojo-widgets/mixins/createParentMixin';
 
 import todoRegistryFactory from './registry/createTodoRegistry';
-import { createTodoAction, destroyTodoAction, registerTodoActions } from './actions/todoActions';
+import { registerTodoActions } from './actions/todoActions';
 import createTodoList from './widgets/createTodoList';
 import createTodoHeader from './widgets/createTodoHeader';
 
