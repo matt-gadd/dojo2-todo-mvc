@@ -4,7 +4,7 @@ import createTextInput, { TextInput } from 'dojo-widgets/createTextInput';
 import createCheckboxInput, { CheckboxInput } from './createCheckboxInput';
 import { h, VNode } from 'maquette/maquette';
 
-import { destroyTodoAction } from '../actions/todoActions';
+import { destroyTodoAction, toggleCompleteTodoAction } from '../actions/todoActions';
 
 export interface TodoItemMixin {
 	childWidgets: TodoItemChildWidgets;
@@ -14,6 +14,10 @@ interface TodoItemChildWidgets {
 	checkbox: CheckboxInput;
 	button: Button;
 	editInput: TextInput;
+}
+
+interface TodoItemCheckedEvent extends Event {
+	target: any;
 }
 
 export type TodoItem = Widget<any> & TodoItemMixin;
@@ -32,14 +36,21 @@ const createTodoItem = createWidget
 			};
 		},
 		mixin: {
-			checkboxChangeListener(e: Event) {
-				// action.complete
+			checkboxChangeListener(e: TodoItemCheckedEvent) {
+				const todoItem: TodoItem = this;
+
+				toggleCompleteTodoAction.do({
+					id: todoItem.state.id,
+					complete: e.target.checked
+				});
 			},
 			deleteButtonClickListener(e: MouseEvent) {
 				const todoItem: TodoItem = this;
 
 				destroyTodoAction.do({
 					id: todoItem.state.id
+				}).then(() => {
+					todoItem.invalidate();
 				});
 			},
 			childWidgets: <TodoItemChildWidgets> null,
@@ -62,9 +73,12 @@ const createTodoItem = createWidget
 					'value': 'createTextInput'
 				});
 
+				const checkboxVNode = checkbox.render();
+				checkboxVNode.properties.checked = todoItem.state.completed;
+
 				return [
 					h('div', {'class': 'view'}, [
-						checkbox.render(),
+						checkboxVNode,
 						h('label', todoItem.state.label),
 						button.render()
 					]),

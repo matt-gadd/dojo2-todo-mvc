@@ -30,11 +30,49 @@ const create: AnyAction = createAction({
 
 		const label = options.label;
 
-		return widgetStore.add({ id, label })
+		return widgetStore.add({ id, label, completed: false, classes: [] })
 			.then(() => widgetStore.get(parentId))
 			.then((todosState: WidgetStateRecord) => [...todosState.children, id])
 			.then((children: string[]) => widgetStore.patch({ id: parentId, children }))
 			.then(() => id);
+	}
+});
+
+interface CompletePatchObject {
+	id: string;
+	completed: boolean,
+	classes?: string[]
+}
+
+const todoCompleteClass = 'completed';
+
+function setComplete(todoItemState: any) {
+	if (todoItemState.classes.indexOf(todoCompleteClass) < 0) {
+		todoItemState.classes.push(todoCompleteClass);
+	}
+	return todoItemState.classes;
+}
+
+function setIncomplete(todoItemState: any) {
+	return todoItemState.classes.filter((className: string) => className !== todoCompleteClass);
+}
+
+const toggleComplete: AnyAction = createAction({
+	configure,
+	do(options: any) {
+		const widgetStore = this.configuration.widgetStore;
+		const itemId = options.id;
+		const patchObject: CompletePatchObject = {
+			id: itemId,
+			completed: options.complete
+		};
+
+		return widgetStore.get(itemId)
+			.then((todoItemState: any) => options.complete ? setComplete(todoItemState) : setIncomplete(todoItemState))
+			.then((classes: string[]) => {
+				patchObject.classes = classes;
+				return widgetStore.patch(patchObject);
+			});
 	}
 });
 
@@ -56,10 +94,12 @@ const destroy: AnyAction = createAction({
 function registerAll (configuration: TodoActionConfiguration) {
 	create.configure(configuration);
 	destroy.configure(configuration);
+	toggleComplete.configure(configuration);
 }
 
 export {
 	create as createTodoAction,
+	toggleComplete as toggleCompleteTodoAction,
 	destroy as destroyTodoAction,
 	registerAll as registerTodoActions
 };
