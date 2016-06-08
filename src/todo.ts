@@ -5,7 +5,7 @@ import projector from 'dojo-widgets/projector';
 import { Child } from 'dojo-widgets/mixins/createParentMixin';
 
 import todoRegistryFactory from './registry/createTodoRegistry';
-import todoActionsFactory from './actions/createTodoActions';
+import { createTodoAction, destroyTodoAction, registerTodoActions } from './actions/todoActions';
 import createTodoList from './widgets/createTodoList';
 import createTodoHeader from './widgets/createTodoHeader';
 
@@ -34,19 +34,12 @@ const main = createPanel({
 	tagName: 'section'
 });
 
-// The Header
 const todoHeader = createTodoHeader({
 	id: 'todo-header',
 	stateFrom: widgetStore
 });
 
-// The List
 const todoRegistry = todoRegistryFactory({ widgetStore });
-
-const todoActions = todoActionsFactory({
-	widgetStore,
-	todoListId: 'todo-list'
-});
 
 const todoList = createTodoList({
 	id: 'todo-list',
@@ -60,8 +53,19 @@ const todoButton = createButton({
 	stateFrom: widgetStore
 });
 
-todoButton.on('click', function () {
-	todoActions.create('blah').do();
+const parentId = 'todo-list';
+registerTodoActions({ widgetStore, parentId });
+
+let count = 0;
+
+function deleteInAWhile (id: string) {
+	setTimeout(() => {
+		destroyTodoAction.do({ id, parentId: 'todo-list' });
+	}, 3000);
+}
+
+todoButton.on('click', () => {
+	createTodoAction.do({ 'label': count++, parentId: 'todo-list'}).then(deleteInAWhile);
 });
 
 main.append(todoButton);
