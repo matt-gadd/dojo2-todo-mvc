@@ -1,0 +1,23 @@
+{
+	"name": "dojo2-todo-mvc",
+	"description": "TodoMVC for Dojo2",
+	"keywords": [
+		"dojo",
+		"dojo2"
+	],
+	"authors": [
+	],
+	"main": "dist/umd/index.js",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/Tomdye/dojo2-todo-mvc.git"
+	},
+	"dependencies": {
+	},
+	"ignore": [
+		".*",
+		"tests"
+	],
+	"license": [ "BSD-3-Clause" ],
+	"moduleType": [ "amd" ]
+}

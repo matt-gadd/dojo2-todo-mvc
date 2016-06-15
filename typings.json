@@ -1,5 +1,5 @@
 {
-	"name": "todo-dojo2",
+	"name": "dojo2-todo-mvc",
 	"dependencies": {
 		"@reactivex/RxJS": "npm:@reactivex/RxJS",
 		"immutable": "npm:immutable",
@@ -16,7 +16,7 @@
 		"extra-rxjs": "github:dojo/typings/custom/dojo2-extras/rxjs.d.ts#004fc065b3b24412c9b6575cdc06545964c370b5",
        	"es6-shim": "github:DefinitelyTyped/DefinitelyTyped/es6-shim/es6-shim.d.ts#6697d6f7dadbf5773cb40ecda35a76027e0783b2",
 		 "symbol-shim": "github:dojo/typings/custom/symbol-shim/symbol-shim.d.ts#9a0185f465a3febe2bb1ff3f1210f43e5f96c5d2"
-	
+
 	},
 	"devDependencies": {
 		"chai": "registry:npm/chai#3.5.0+20160415060238",
