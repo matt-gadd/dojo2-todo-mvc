@@ -1,25 +1,8 @@
-# dojo-<< package-name >>
+# dojo2-todo-mvc
 
-<!-- TODO: change and uncomment
-[![Build Status](https://travis-ci.org/dojo/<< package-name >>.svg?branch=master)](https://travis-ci.org/dojo/<< package-name >>)
-[![codecov](https://codecov.io/gh/dojo/<< package-name >>/branch/master/graph/badge.svg)](https://codecov.io/gh/dojo/<< package-name >>)
-[![npm version](https://badge.fury.io/js/dojo-<< package-name >>.svg)](http://badge.fury.io/js/dojo-<< package-name >>)
--->
-
-TODO: Replace with a description of this package
-
-## Features
-
-TODO: Add sections on features of this package
+Work in progress TodoMVC using dojo2
 
 ## How do I use this package?
-
-TODO: Add appropriate usage and instruction guidelines
-
-## How do I contribute?
-
-We appreciate your interest!  Please see the [Dojo 2 Meta Repository](https://github.com/dojo/meta#readme) for the
-Contributing Guidelines and Style Guide.
 
 ## Testing
 
@@ -42,12 +25,4 @@ To test against BrowserStack or Sauce Labs run:
 or
 
 `grunt test:saucelabs`
-
-## Licensing information
-
-TODO: If third-party code was used to write this library, make a list of project names and licenses here
-
-* [Third-party lib one](https//github.com/foo/bar) ([New BSD](http://opensource.org/licenses/BSD-3-Clause))
-
-© 2004–2016 Dojo Foundation & contributors. [New BSD](http://opensource.org/licenses/BSD-3-Clause) license.
 
