@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>todo dojo2</title>
-	<link rel="stylesheet" type="text/css" href="./app.css">
+	<title>dojo2 todo mvc</title>
 	<link rel="stylesheet" href="./../node_modules/todomvc-common/base.css">
 	<link rel="stylesheet" href="./../node_modules/todomvc-app-css/index.css">
 </head>
 <body>
 	<script src="./../node_modules/dojo-loader/dist/umd/loader.min.js"></script>
-	<script src="./index.js"></script>
+	<script src="./src/index.js"></script>
+	<widget-projector>
+		<widget-instance id="todo-app">
+			<widget-instance id="todo-header"></widget-instance>
+			<widget-instance id="todo-list"></widget-instance>
+		</widget-instance>
+	</widget-projector>
 </body>
 </html>

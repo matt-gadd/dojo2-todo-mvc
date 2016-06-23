@@ -1,22 +1,17 @@
+
 import createMemoryStore from 'dojo-widgets/util/createMemoryStore';
 import createPanel from 'dojo-widgets/createPanel';
-import projector from 'dojo-widgets/projector';
-import { Child } from 'dojo-widgets/mixins/createParentMixin';
 
 import todoRegistryFactory from './registry/createTodoRegistry';
 import { registerTodoActions } from './actions/todoActions';
 import createTodoList from './widgets/createTodoList';
 import createTodoHeader from './widgets/createTodoHeader';
 
-interface WidgetStateRecord {
-	[prop: string]: any;
-	id: string;
-	classes?: string[];
-	label?: string;
-	children?: string[];
-}
+import createApp from 'dojo-app/createApp';
 
-const widgetStore = createMemoryStore<WidgetStateRecord>({
+const app = createApp({ toAbsMid: require.toAbsMid });
+
+const widgetStore = createMemoryStore({
 	data: [
 		{'id': 'todo-app', 'classes': ['todoapp']},
 		{'id': 'todo-list', 'classes': ['todo-list'], children: []},
@@ -25,33 +20,36 @@ const widgetStore = createMemoryStore<WidgetStateRecord>({
 	]
 });
 
-const widgets: Child[] = [];
+app.registerStore('widget-store', widgetStore);
 
-const main = createPanel({
-	id: 'todo-app',
-	stateFrom: widgetStore,
-	tagName: 'section'
-});
-
-const todoHeader = createTodoHeader({
-	id: 'todo-header',
-	stateFrom: widgetStore
-});
-
-const todoRegistry = todoRegistryFactory({ widgetStore });
-
-const todoList = createTodoList({
-	id: 'todo-list',
-	stateFrom: widgetStore,
-	widgetRegistry: todoRegistry
+app.loadDefinition({
+	widgets: [
+		{
+			id: 'todo-app',
+			factory: createPanel,
+			stateFrom: 'widget-store',
+			options: {
+				tagName: 'section'
+			}
+		},
+		{
+			id: 'todo-header',
+			factory: createTodoHeader,
+			stateFrom: 'widget-store'
+		},
+		{
+			id: 'todo-list',
+			factory: createTodoList,
+			stateFrom: 'widget-store',
+			options: {
+				widgetRegistry: todoRegistryFactory({ widgetStore })
+			}
+		}
+	]
 });
 
 const parentId = 'todo-list';
 registerTodoActions({ widgetStore, parentId });
 
-main.append(todoHeader);
-main.append(todoList);
-widgets.push(main);
+app.realize(document.body);
 
-projector.append(widgets);
-projector.attach();

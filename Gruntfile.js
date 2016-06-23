@@ -1,3 +1,26 @@
 module.exports = function (grunt) {
-	require('grunt-dojo2').initConfig(grunt);
+
+	var staticFiles = [ 'src/**/*.html' ];
+
+	require('grunt-dojo2').initConfig(grunt, {
+		copy: {
+			staticFiles: {
+				expand: true,
+				flatten: true,
+				cwd: '.',
+				src: staticFiles,
+				dest: '<%= devDirectory %>'
+			}
+		}
+	});
+
+	grunt.registerTask('dev', [
+		'typings',
+		'tslint',
+		'clean:dev',
+		'ts:dev',
+		'copy:staticFiles',
+		'updateTsconfig'
+	]);
+
 };

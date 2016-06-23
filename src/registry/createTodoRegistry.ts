@@ -1,5 +1,5 @@
 import Promise from 'dojo-core/Promise';
-import { Child } from 'dojo-widgets/mixins/createParentMixin';
+import { Child } from 'dojo-widgets/mixins/interfaces';
 import createTodoItem from '../widgets/createTodoItem';
 import WeakMap from 'dojo-core/WeakMap';
 import Map from 'dojo-core/Map';
