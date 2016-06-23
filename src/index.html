@@ -9,10 +9,10 @@
 	<script src="./../node_modules/dojo-loader/dist/umd/loader.min.js"></script>
 	<script src="./src/index.js"></script>
 	<widget-projector>
-		<widget-instance id="todo-app">
-			<widget-instance id="todo-header"></widget-instance>
-			<widget-instance id="todo-list"></widget-instance>
-		</widget-instance>
+		<div is="widget-instance" id="todo-app">
+			<dojo-widget dojo-options='{"id":"todo-header","tagName":"mark","stateFrom":"widget-store"}'></dojo-widget>
+			<div is="widget-instance" id="todo-list"></div>
+		</div>
 	</widget-projector>
 </body>
 </html>

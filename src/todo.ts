@@ -5,6 +5,7 @@ import createPanel from 'dojo-widgets/createPanel';
 import todoRegistryFactory from './registry/createTodoRegistry';
 import { registerTodoActions } from './actions/todoActions';
 import createTodoList from './widgets/createTodoList';
+import createWidget from 'dojo-widgets/createWidget';
 import createTodoHeader from './widgets/createTodoHeader';
 
 import createApp from 'dojo-app/createApp';
@@ -44,6 +45,12 @@ app.loadDefinition({
 			options: {
 				widgetRegistry: todoRegistryFactory({ widgetStore })
 			}
+		}
+	],
+	customElements: [
+		{
+			name: 'dojo-widget',
+			factory: createWidget
 		}
 	]
 });
