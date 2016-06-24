@@ -10,7 +10,10 @@
 	<script src="./src/index.js"></script>
 	<widget-projector>
 		<div is="widget-instance" id="todo-app">
-			<dojo-widget dojo-options='{"id":"todo-header","tagName":"mark","stateFrom":"widget-store"}'></dojo-widget>
+			<dojo-parent-widget data-options='{"id":"todo-header","tagName":"header","stateFrom":"widget-store"}'>
+				<dojo-widget data-options='{"id": "todo-header-title","tagName": "h1","stateFrom":"widget-store"}'></dojo-widget>
+				<div is="widget-instance" id="todo-new-item"></div>
+			</dojo-parent-widget>
 			<div is="widget-instance" id="todo-list"></div>
 		</div>
 	</widget-projector>
