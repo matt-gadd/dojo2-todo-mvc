@@ -20,6 +20,7 @@
 		"./src/actions/todoActions.ts",
 		"./src/index.ts",
 		"./src/registry/createTodoRegistry.ts",
+		"./src/sw.ts",
 		"./src/todo.ts",
 		"./src/todoItem.ts",
 		"./src/widgets/createCheckboxInput.ts",

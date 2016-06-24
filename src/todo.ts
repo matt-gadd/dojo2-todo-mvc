@@ -13,7 +13,13 @@ import createRouter from 'dojo-routing/createRouter';
 import createRoute from 'dojo-routing/createRoute';
 
 import createHashHistory from 'dojo-routing/history/createHashHistory';
+import request from 'dojo-core/request';
+
 const history = createHashHistory();
+
+request.get('blah/test').then(() => {
+	debugger;
+});
 
 import createApp from 'dojo-app/createApp';
 

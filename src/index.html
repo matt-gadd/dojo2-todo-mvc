@@ -6,6 +6,11 @@
 	<link rel="stylesheet" href="./../node_modules/todomvc-app-css/index.css">
 </head>
 <body>
+	<script type="text/javascript">
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('./src/sw.js').then(() => { console.log('Service Worker Registered'); })
+		}
+	</script>
 	<script src="./../node_modules/dojo-loader/dist/umd/loader.min.js"></script>
 	<script src="./src/index.js"></script>
 	<widget-projector>
