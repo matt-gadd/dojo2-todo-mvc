@@ -1,11 +1,11 @@
-self.addEventListener('install', function(event) {
+self.addEventListener('install', function(event: InstallEvent) {
 	console.log('hello');
 });
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', function(event: FetchEvent) {
 	event.respondWith(
-		caches.match(event.request).then(function(response) {
-			return response || fetch(event.request);
+		self.caches.match(event.request).then(function(response) {
+			return response || self.fetch(event.request);
 		})
 	);
 });
